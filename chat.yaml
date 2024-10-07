@@ -1,0 +1,32 @@
+esphome:
+  name: daly_bms_monitor
+  platform: ESP32
+  board: esp32dev
+
+wifi:
+  ssid: "MyWiFiNetwork"
+  password: "MyWiFiPassword"
+
+mqtt:
+  broker: "192.168.1.124"
+  username: "mqttuser"
+  password: "Godzilla2020185"
+
+# Включение Bluetooth на ESP32
+esp32_ble_tracker:
+
+# Настройка BLE-клиента для взаимодействия с DALY BMS
+custom_component:
+  - lambda: |-
+      auto my_daly_bms = new DalyBMSComponent(id(mqtt_client));
+      return {my_daly_bms};
+
+# Настройка пользовательского компонента
+external_components:
+  - source: github://esphome/esphome
+
+# Логирование
+logger:
+  level: DEBUG
+
+
